@@ -1,0 +1,21 @@
+{
+    "name": "sokil/id-bench",
+    "description": "Identifier benchmarking",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmytro Sokil"
+        }
+    ],
+    "autoload": {
+        "Sokil\\Bench\\": "bench/"
+    },
+    "require": {
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-pdo_pgsql": "*",
+        "ext-mongodb": "*",
+        "phpbench/phpbench": "^1.2"
+    }
+}
