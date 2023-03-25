@@ -9,13 +9,13 @@
         }
     ],
     "autoload": {
-        "Sokil\\Bench\\": "bench/"
+        "Sokil\\IdBench\\": "src/"
     },
     "require": {
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "ext-pdo_pgsql": "*",
         "ext-mongodb": "*",
-        "phpbench/phpbench": "^1.2"
+        "symfony/console": "^6.2"
     }
 }

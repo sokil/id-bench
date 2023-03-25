@@ -1,0 +1,52 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\SingleCommandApplication;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Sokil\IdBench\Benchmark\Benchmark;
+
+$application = new SingleCommandApplication();
+$application
+    ->addArgument(
+        'database',
+        InputArgument::REQUIRED,
+        'One of "mysql", "pgsql", "mongo"'
+    )
+    ->addOption(
+        'iterations',
+        'i',
+        InputOption::VALUE_OPTIONAL,
+        'Count of iterations to perform',
+        10
+    )
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $databaseName = $input->getArgument('database');
+        if (!in_array($databaseName, ['mysql', 'pgsql', 'mongo'])) {
+            throw new \InvalidArgumentException('Invalid database specifier');
+        }
+
+        $iterations = (int) $input->getOption('iterations');
+
+        // get connection DSN
+        $connectionDSN = getenv(strtoupper($databaseName) . '_CONNECTION_DSN');
+
+        // build benchmark
+        $databaseClass = '\\Sokil\\IdBench\\Database\\' . ucfirst($databaseName);
+        $benchmark = new Benchmark(
+            new $databaseClass($connectionDSN)
+        );
+
+        // run benchmark
+        $result = $benchmark->run($iterations);
+
+        // show results
+        $output->writeln(var_export(iterator_to_array($result), true));
+    })
+    ->run();
