@@ -1,11 +1,22 @@
 services:
+  php:
+    image: id-bench-php
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/bench
+    environment:
+      MYSQL_CONNECTION_DSN: mysql:host=localhost;port=3306;dbname=bench;user=root;password=root
+      PGSQL_CONNECTION_DSN: pgsql:host=localhost;port=5432;dbname=bench;user=root;password=root
+      MONGO_CONNECTION_DSN: mongodb://localhost:27017
+
   mysql_8_0:
     image: mysql:8.0.32
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - 3306:3306
     environment:
-      CONNECTION_DSN: mysql:host=localhost;port=3306;dbname=bench;user=root;password=root
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bench
     volumes:
@@ -15,12 +26,8 @@ services:
     image: postgres:15.2-alpine
     ports:
       - 5432:5432
-    environment:
-      CONNECTION_DSN: pgsql:host=localhost;port=5432;dbname=bench;user=root;password=root
 
   mongodb_6_0:
     image: mongo:6.0.5
     ports:
       - 27017:27017
-    environment:
-      CONNECTION_DSN: mongodb://localhost:27017
