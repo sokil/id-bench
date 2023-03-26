@@ -10,7 +10,7 @@ RUN apk add \
     # Required for PostgreSQL
     postgresql-dev
 RUN apk add --virtual .build-deps $PHPIZE_DEPS
-RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
+RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql pcntl
 RUN pecl install mongodb-1.15.1 && docker-php-ext-enable mongodb
 RUN apk del .build-deps
 

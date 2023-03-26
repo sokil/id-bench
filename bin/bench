@@ -27,17 +27,17 @@ $application
     )
     ->addOption(
         'iterations',
-        'r',
+        'i',
         InputOption::VALUE_OPTIONAL,
         'Count of iterations to perform',
-        4200000
+        10
     )
     ->addOption(
         'batchSize',
         'b',
         InputOption::VALUE_OPTIONAL,
         'Count of iterations to perform',
-        2000
+        1000
     )
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $databaseName = $input->getArgument('database');
@@ -78,6 +78,8 @@ $application
         $resultFilename = $databaseName . '-' . $benchmarkName . '-' . date('YmdHis') . '.csv';
         $resultFile = fopen(__DIR__ . '/../results/' . $resultFilename, 'w+');
         foreach ($result as $resultRow) {
+            pcntl_signal_dispatch();
+
             fputcsv($resultFile, [
                 $resultRow['iteration'] * $batchSize,
                 $resultRow['duration'],

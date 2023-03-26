@@ -18,6 +18,7 @@
         "ext-pdo_mysql": "*",
         "ext-pdo_pgsql": "*",
         "ext-mongodb": "*",
+        "ext-pcntl": "*",
         "symfony/console": "^6.2",
         "ramsey/uuid": "^4.7"
     }

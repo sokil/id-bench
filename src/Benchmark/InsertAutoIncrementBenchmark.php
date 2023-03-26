@@ -17,6 +17,8 @@ class InsertAutoIncrementBenchmark implements BenchmarkInterface
         int $iterations,
         int $batchSize,
     ): \Generator {
+        $this->database->truncateAutoIncrementTable();
+
         for ($i = 0; $i < $iterations; $i++) {
             // duration of insert
             $startTime = microtime(true);
@@ -24,7 +26,7 @@ class InsertAutoIncrementBenchmark implements BenchmarkInterface
             $duration = microtime(true) - $startTime;
 
             // size of index
-            $indexSize = $this->database->getIndexSize();
+            $indexSize = $this->database->getAutoIncrementIndexSize();
 
             yield [
                 'iteration' => $i,

@@ -23,6 +23,16 @@ class Mysql implements DatabaseInterface
         );
     }
 
+    public function truncateAutoIncrementTable(): void
+    {
+        $this->connection->query('TRUNCATE TABLE test_autoincrement');
+    }
+
+    public function truncateUuidTable(): void
+    {
+        $this->connection->query('TRUNCATE TABLE test_uuid');
+    }
+
     public function insertWithAutoIncrement(int $batchSize): void
     {
         $values = implode(
@@ -38,8 +48,32 @@ class Mysql implements DatabaseInterface
 
     }
 
-    public function getIndexSize(): int
+    public function getAutoIncrementIndexSize(): int
     {
-        return 0;
+        return $this->getIndexSize('test_autoincrement');
+    }
+
+    public function getUuidIndexSize(): int
+    {
+        return $this->getIndexSize('test_uuid');
+    }
+
+    private function getIndexSize(string $tableName): int
+    {
+        $stmt = $this->connection->query(
+            sprintf("
+                SELECT stat_value * @@innodb_page_size as index_size
+                FROM mysql.innodb_index_stats 
+                WHERE 
+                    database_name = 'bench' AND 
+                    table_name = '%s' AND
+                    index_name = 'PRIMARY' AND
+                    stat_name = 'size'
+                ",
+                $tableName
+            )
+        );
+
+        return (int) $stmt->fetchColumn();
     }
 }
