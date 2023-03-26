@@ -10,7 +10,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Sokil\IdBench\Benchmark\Benchmark;
+use Sokil\IdBench\Database\DatabaseInterface;
+use Sokil\IdBench\Benchmark\BenchmarkInterface;
 
 $application = new SingleCommandApplication();
 $application
@@ -19,34 +20,71 @@ $application
         InputArgument::REQUIRED,
         'One of "mysql", "pgsql", "mongo"'
     )
+    ->addArgument(
+        'benchmark',
+        InputArgument::REQUIRED,
+        'One of suites to run'
+    )
     ->addOption(
         'iterations',
-        'i',
+        'r',
         InputOption::VALUE_OPTIONAL,
         'Count of iterations to perform',
-        10
+        4200000
+    )
+    ->addOption(
+        'batchSize',
+        'b',
+        InputOption::VALUE_OPTIONAL,
+        'Count of iterations to perform',
+        2000
     )
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $databaseName = $input->getArgument('database');
-        if (!in_array($databaseName, ['mysql', 'pgsql', 'mongo'])) {
-            throw new \InvalidArgumentException('Invalid database specifier');
-        }
-
+        $benchmarkName = $input->getArgument('benchmark');
         $iterations = (int) $input->getOption('iterations');
+        $batchSize = (int) $input->getOption('batchSize');
 
         // get connection DSN
         $connectionDSN = getenv(strtoupper($databaseName) . '_CONNECTION_DSN');
 
-        // build benchmark
+        // build database
         $databaseClass = '\\Sokil\\IdBench\\Database\\' . ucfirst($databaseName);
-        $benchmark = new Benchmark(
-            new $databaseClass($connectionDSN)
+        if (!class_exists($databaseClass)) {
+            throw new \InvalidArgumentException(sprintf('Database class %s not found', $databaseClass));
+        }
+
+        /** @var DatabaseInterface $database */
+        $database = new $databaseClass($connectionDSN);
+
+        // build benchmark
+        $benchmarkClass = '\\Sokil\\IdBench\\Benchmark\\' . ucfirst($benchmarkName) . 'Benchmark';
+        if (!class_exists($benchmarkClass)) {
+            throw new \InvalidArgumentException('Invalid benchmark specified');
+        }
+
+        /** @var BenchmarkInterface $benchmark */
+        $benchmark = new $benchmarkClass(
+            $database
         );
 
         // run benchmark
-        $result = $benchmark->run($iterations);
+        $result = $benchmark->run(
+            $iterations,
+            $batchSize,
+        );
 
         // show results
-        $output->writeln(var_export(iterator_to_array($result), true));
+        $resultFilename = $databaseName . '-' . $benchmarkName . '-' . date('YmdHis') . '.csv';
+        $resultFile = fopen(__DIR__ . '/../results/' . $resultFilename, 'w+');
+        foreach ($result as $resultRow) {
+            fputcsv($resultFile, [
+                $resultRow['iteration'] * $batchSize,
+                $resultRow['duration'],
+                $resultRow['indexSize']]
+            );
+        }
+
+        fclose($resultFile);
     })
     ->run();

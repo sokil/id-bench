@@ -9,13 +9,16 @@
         }
     ],
     "autoload": {
-        "Sokil\\IdBench\\": "src/"
+        "psr-4": {
+            "Sokil\\IdBench\\": "src/"
+        }
     },
     "require": {
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "ext-pdo_pgsql": "*",
         "ext-mongodb": "*",
-        "symfony/console": "^6.2"
+        "symfony/console": "^6.2",
+        "ramsey/uuid": "^4.7"
     }
 }

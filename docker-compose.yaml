@@ -7,9 +7,9 @@ services:
     volumes:
       - .:/bench
     environment:
-      MYSQL_CONNECTION_DSN: mysql:host=localhost;port=3306;dbname=bench;user=root;password=root
-      PGSQL_CONNECTION_DSN: pgsql:host=localhost;port=5432;dbname=bench;user=root;password=root
-      MONGO_CONNECTION_DSN: mongodb://localhost:27017
+      MYSQL_CONNECTION_DSN: mysql:host=mysql_8_0;port=3306;dbname=bench;user=root;password=root
+      PGSQL_CONNECTION_DSN: pgsql:host=postgres_15_2;port=5432;dbname=bench;user=root;password=root
+      MONGO_CONNECTION_DSN: mongodb://mongodb_6_0:27017
 
   mysql_8_0:
     image: mysql:8.0.32
@@ -20,7 +20,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bench
     volumes:
-      - ./docker/mysql_8_0/initdb:/docker-entrypoint-initdb.d
+      - ./docker/mysql_8_0/initdb:/docker-entrypoint-initdb.d/
+      - ./docker/mysql_8_0/conf:/etc/mysql/conf.d/
 
   postgres_15_2:
     image: postgres:15.2-alpine
