@@ -17,7 +17,7 @@ Identifier benchmarking
 
 ## Results
 
-### MySQL
+### MySQL 8.0 InnoDb
 
 #### Insert
 
