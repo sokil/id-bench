@@ -27,6 +27,12 @@ services:
     image: postgres:15.2-alpine
     ports:
       - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: bench
+    volumes:
+      - ./docker/postgres_15_2/initdb:/docker-entrypoint-initdb.d/
 
   mongodb_6_0:
     image: mongo:6.0.5
