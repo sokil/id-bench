@@ -20,6 +20,11 @@ Identifier benchmarking
 CPU: 12th Gen Intel(R) Core(TM) i7-1255U
 RAM: 16 GB
 
+### Database schemas
+
+* [MySQL](docker/mysql_8_0/initdb/schema.sql)
+* [Postgres](docker/postgres_15_2/initdb/schema.sql)
+
 ### Running tests
 
 Run next command with defined parameters:
@@ -44,15 +49,14 @@ Records inserted by batch 5000 times with size 2000. Total amount of records - 1
 
 ### MySQL 8.0 InnoDb
 
-
 ![Insert time](results/mysql-insert-time.png)
-
 ![Insert time](results/mysql-insert-indexsize.png)
+
+### Postgres 15.2
 
 ![Insert time](results/postgres-insert-time.png)
 ![Insert time](results/postgres-insert-indexsize.png)
 
-### 
 
 ## Materials
 
