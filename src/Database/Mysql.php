@@ -33,19 +33,41 @@ class Mysql implements DatabaseInterface
         $this->connection->query('TRUNCATE TABLE test_uuid');
     }
 
-    public function insertWithAutoIncrement(int $batchSize): void
+    public function measureAutoIncrementInsert(int $batchSize): float
     {
         $values = implode(
             ',',
             array_fill(0, $batchSize, '(default)')
         );
 
+        $startTime = microtime(true);
+
         $this->connection->query('INSERT INTO test_autoincrement VALUES ' . $values);
+
+        $duration = microtime(true) - $startTime;
+
+        return $duration;
     }
 
-    public function insertWithUuid(): void
+    /**
+     * @param string[] $ids List of uuids in 32 chars hex format
+     */
+    public function measureUuidInsert(array $ids): float
     {
+        $values = '(0x' . implode(
+            '),(0x',
+            $ids
+        ) . ')';
 
+        $query = 'INSERT INTO test_uuid VALUES ' . $values;
+
+        $startTime = microtime(true);
+
+        $this->connection->query($query);
+
+        $duration = microtime(true) - $startTime;
+
+        return $duration;
     }
 
     public function getAutoIncrementIndexSize(): int

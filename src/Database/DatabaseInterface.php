@@ -12,9 +12,12 @@ interface DatabaseInterface
 
     public function truncateUuidTable(): void;
 
-    public function insertWithAutoIncrement(int $batchSize): void;
+    public function measureAutoIncrementInsert(int $batchSize): float;
 
-    public function insertWithUuid(): void;
+    /**
+     * @param string[] $ids List of uuids in 32 chars hex format
+     */
+    public function measureUuidInsert(array $ids): float;
 
     public function getAutoIncrementIndexSize(): int;
 

@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Sokil\IdBench\Database\DatabaseInterface;
 use Sokil\IdBench\Benchmark\BenchmarkInterface;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 $application = new SingleCommandApplication();
 $application
@@ -60,7 +61,7 @@ $application
         // build benchmark
         $benchmarkClass = '\\Sokil\\IdBench\\Benchmark\\' . ucfirst($benchmarkName) . 'Benchmark';
         if (!class_exists($benchmarkClass)) {
-            throw new \InvalidArgumentException('Invalid benchmark specified');
+            throw new \InvalidArgumentException(sprintf('Benchmark class %s not found', $benchmarkClass));
         }
 
         /** @var BenchmarkInterface $benchmark */
@@ -68,16 +69,19 @@ $application
             $database
         );
 
-        // run benchmark
-        $result = $benchmark->run(
+        // create benchmark generator
+        $generator = $benchmark->createGenerator(
             $iterations,
             $batchSize,
         );
 
+        // create progress bar
+        $progressBar = new ProgressBar($output, $iterations);
+
         // show results
-        $resultFilename = $databaseName . '-' . $benchmarkName . '-' . date('YmdHis') . '.csv';
+        $resultFilename = $databaseName . '-' . $benchmarkName . '.csv';
         $resultFile = fopen(__DIR__ . '/../results/' . $resultFilename, 'w+');
-        foreach ($result as $resultRow) {
+        foreach ($generator as $resultRow) {
             pcntl_signal_dispatch();
 
             fputcsv($resultFile, [
@@ -85,8 +89,14 @@ $application
                 $resultRow['duration'],
                 $resultRow['indexSize']]
             );
+
+            $progressBar->advance();
         }
 
+        // free resources
         fclose($resultFile);
+        $progressBar->finish();
+
+        $output->writeln("");
     })
     ->run();
