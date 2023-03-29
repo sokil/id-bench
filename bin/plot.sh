@@ -43,3 +43,6 @@ EOF
 
 draw "mysql-insert" "Time" 2 "mysql-insert-time.png" "smooth csplines"
 draw "mysql-insert" "Index Size" 3 "mysql-insert-indexsize.png" ""
+
+draw "postgres-insert" "Time" 2 "postgres-insert-time.png" "smooth csplines"
+draw "postgres-insert" "Index Size" 3 "postgres-insert-indexsize.png" ""

@@ -15,15 +15,44 @@ Identifier benchmarking
 | 7       | UUID version 7 features a time-ordered value field derived from the widely implemented and well known Unix Epoch timestamp source, the number of milliseconds seconds since midnight 1 Jan 1970 UTC, leap seconds excluded. As well as improved entropy characteristics over versions 1 or 6. Implementations SHOULD utilize UUID version 7 over UUID version 1 and 6 if possible. |
 | 8       | RFC-compatible format for experimental or vendor-specific use cases.                                                                                                                                                                                                                                                                                                               |
 
+## Test environment definition
+
+CPU: 12th Gen Intel(R) Core(TM) i7-1255U
+RAM: 16 GB
+
+### Running tests
+
+Run next command with defined parameters:
+
+```
+docker compose run --rm php ./bin/bench [database] [benchmark] -b [batch-size] -i [iterations]
+```
+
+### Building charts
+
+After running benchmarks, you may build charts:
+
+```
+./bin/plot.sh
+```
+
 ## Results
+
+#### Insert
+
+Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
 
 ### MySQL 8.0 InnoDb
 
-#### Insert
 
 ![Insert time](results/mysql-insert-time.png)
 
 ![Insert time](results/mysql-insert-indexsize.png)
+
+![Insert time](results/postgres-insert-time.png)
+![Insert time](results/postgres-insert-indexsize.png)
+
+### 
 
 ## Materials
 
