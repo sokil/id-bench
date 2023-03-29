@@ -84,10 +84,14 @@ $application
         foreach ($generator as $resultRow) {
             pcntl_signal_dispatch();
 
-            fputcsv($resultFile, [
-                $resultRow['iteration'] * $batchSize,
-                $resultRow['duration'],
-                $resultRow['indexSize']]
+            fputcsv(
+                $resultFile,
+                [
+                    (1 + $resultRow['iteration']) * $batchSize,
+                    $resultRow['duration'],
+                    $resultRow['indexSize']
+                ],
+                "\t"
             );
 
             $progressBar->advance();
