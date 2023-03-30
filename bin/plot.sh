@@ -44,7 +44,7 @@ EOF
 draw "mysql-insert" "Time" 2 "mysql-insert-time.png" "smooth csplines"
 draw "mysql-insert" "Index Size" 3 "mysql-insert-indexsize.png" ""
 
-draw "percona-insert" "Time" 2 "percona-insert-time.png" "smooth csplines"
+draw "percona-insert" "Time" 2 "percona-insert-time.png" "smooth bezier"
 draw "percona-insert" "Index Size" 3 "percona-insert-indexsize.png" ""
 
 draw "mariadb-insert" "Time" 2 "mariadb-insert-time.png" "smooth csplines"
