@@ -57,6 +57,12 @@ Records inserted by batch 5000 times with size 2000. Total amount of records - 1
 ![Insert time](results/postgres-insert-time.png)
 ![Insert time](results/postgres-insert-indexsize.png)
 
+### MongoDB 6.0
+
+MongoDb has no auto increment feature, so external sequence used and MongoDB just insert integers.
+
+![Insert time](results/mongodb-insert-time.png)
+![Insert time](results/mongodb-insert-indexsize.png)
 
 ## Materials
 

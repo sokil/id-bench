@@ -46,3 +46,6 @@ draw "mysql-insert" "Index Size" 3 "mysql-insert-indexsize.png" ""
 
 draw "postgres-insert" "Time" 2 "postgres-insert-time.png" "smooth csplines"
 draw "postgres-insert" "Index Size" 3 "postgres-insert-indexsize.png" ""
+
+draw "mongodb-insert" "Time" 2 "mongodb-insert-time.png" "smooth csplines"
+draw "mongodb-insert" "Index Size" 3 "mongodb-insert-indexsize.png" ""
