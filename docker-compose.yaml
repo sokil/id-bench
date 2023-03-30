@@ -9,7 +9,7 @@ services:
     environment:
       MYSQL_CONNECTION_DSN: mysql:host=mysql_8_0;port=3306;dbname=bench;user=root;password=root
       POSTGRES_CONNECTION_DSN: pgsql:host=postgres_15_2;port=5432;dbname=bench;user=root;password=root
-      MONGO_CONNECTION_DSN: mongodb://mongodb_6_0:27017
+      MONGODB_CONNECTION_DSN: mongodb://mongodb_6_0:27017
 
   mysql_8_0:
     image: mysql:8.0.32
