@@ -13,18 +13,50 @@ use Symfony\Component\Console\Input\InputOption;
 use Sokil\IdBench\Database\DatabaseInterface;
 use Sokil\IdBench\Benchmark\BenchmarkInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Sokil\IdBench\Database\Mysql;
+use Sokil\IdBench\Database\Postgres;
+use Sokil\IdBench\Database\Mongodb;
+use Sokil\IdBench\Benchmark\InsertAutoIncrementBenchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv1Benchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv2Benchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv3Benchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv4Benchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv5Benchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv6Benchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv7Benchmark;
+use Sokil\IdBench\Benchmark\InsertUuidv8Benchmark;
+
+$databaseClasses = [
+    'mysql' => Mysql::class,
+    'percona' => Mysql::class,
+    'mariadb' => Mysql::class,
+    'postgres' => Postgres::class,
+    'mongodb' => Mongodb::class,
+];
+
+$benchmarkClasses = [
+    'insertAutoIncrement' => InsertAutoIncrementBenchmark::class,
+    'insertUuidv1' => InsertUuidv1Benchmark::class,
+    'insertUuidv2' => InsertUuidv2Benchmark::class,
+    'insertUuidv3' => InsertUuidv3Benchmark::class,
+    'insertUuidv4' => InsertUuidv4Benchmark::class,
+    'insertUuidv5' => InsertUuidv5Benchmark::class,
+    'insertUuidv6' => InsertUuidv6Benchmark::class,
+    'insertUuidv7' => InsertUuidv7Benchmark::class,
+    'insertUuidv8' => InsertUuidv8Benchmark::class,
+];
 
 $application = new SingleCommandApplication();
 $application
     ->addArgument(
         'database',
         InputArgument::REQUIRED,
-        'One of "mysql", "pgsql", "mongo"'
+        sprintf('One of databases "%s"', implode('", "', array_keys($databaseClasses)))
     )
     ->addArgument(
         'benchmark',
         InputArgument::REQUIRED,
-        'One of suites to run'
+        sprintf('One of benchmarks "%s"', implode('", "', array_keys($benchmarkClasses)))
     )
     ->addOption(
         'iterations',
@@ -40,28 +72,29 @@ $application
         'Count of iterations to perform',
         1000
     )
-    ->setCode(function (InputInterface $input, OutputInterface $output) {
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($databaseClasses, $benchmarkClasses) {
         $databaseName = $input->getArgument('database');
         $benchmarkName = $input->getArgument('benchmark');
         $iterations = (int) $input->getOption('iterations');
         $batchSize = (int) $input->getOption('batchSize');
 
+        // locate database class
+        $databaseClass = $databaseClasses[$databaseName] ?? null;
+        if (empty($databaseClass)) {
+            throw new \InvalidArgumentException(sprintf('Database "%s" not supported', $databaseName));
+        }
+
         // get connection DSN
         $connectionDSN = getenv(strtoupper($databaseName) . '_CONNECTION_DSN');
 
         // build database
-        $databaseClass = '\\Sokil\\IdBench\\Database\\' . ucfirst($databaseName);
-        if (!class_exists($databaseClass)) {
-            throw new \InvalidArgumentException(sprintf('Database class %s not found', $databaseClass));
-        }
-
         /** @var DatabaseInterface $database */
         $database = new $databaseClass($connectionDSN);
 
         // build benchmark
-        $benchmarkClass = '\\Sokil\\IdBench\\Benchmark\\' . ucfirst($benchmarkName) . 'Benchmark';
-        if (!class_exists($benchmarkClass)) {
-            throw new \InvalidArgumentException(sprintf('Benchmark class %s not found', $benchmarkClass));
+        $benchmarkClass = $benchmarkClasses[$benchmarkName] ?? null;
+        if (empty($benchmarkClass)) {
+            throw new \InvalidArgumentException(sprintf('Benchmark %s not found', $benchmarkName));
         }
 
         /** @var BenchmarkInterface $benchmark */

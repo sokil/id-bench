@@ -8,6 +8,8 @@ services:
       - .:/bench
     environment:
       MYSQL_CONNECTION_DSN: mysql:host=mysql_8_0;port=3306;dbname=bench;user=root;password=root
+      PERCONA_CONNECTION_DSN: mysql:host=percona_8_0;port=3306;dbname=bench;user=root;password=root
+      MARIADB_CONNECTION_DSN: mysql:host=mariadb_10_11;port=3306;dbname=bench;user=root;password=root
       POSTGRES_CONNECTION_DSN: pgsql:host=postgres_15_2;port=5432;dbname=bench;user=root;password=root
       MONGODB_CONNECTION_DSN: mongodb://mongodb_6_0:27017
 
@@ -22,6 +24,28 @@ services:
     volumes:
       - ./docker/mysql_8_0/initdb:/docker-entrypoint-initdb.d/
       - ./docker/mysql_8_0/conf:/etc/mysql/conf.d/
+
+  percona_8_0:
+    image: percona:8.0.32-24
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bench
+    volumes:
+      - ./docker/percona_8_0/initdb:/docker-entrypoint-initdb.d/
+      - ./docker/percona_8_0/conf:/etc/mysql/conf.d/
+
+  mariadb_10_11:
+    image: mariadb:10.11.2
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bench
+    volumes:
+      - ./docker/mariadb_10_11/initdb:/docker-entrypoint-initdb.d/
+      - ./docker/mariadb_10_11/conf:/etc/mysql/conf.d/
 
   postgres_15_2:
     image: postgres:15.2-alpine
