@@ -57,6 +57,11 @@ Records inserted by batch 5000 times with size 2000. Total amount of records - 1
 ![Insert time](results/percona-insert-time.png)
 ![Insert time](results/percona-insert-indexsize.png)
 
+### MariaDB 8.0 InnoDb
+
+![Insert time](results/mariadb-insert-time.png)
+![Insert time](results/mariadb-insert-indexsize.png)
+
 ### Postgres 15.2
 
 ![Insert time](results/postgres-insert-time.png)
