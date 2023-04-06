@@ -1,9 +1,9 @@
-CREATE TABLE test_autoincrement
+CREATE TABLE primary_autoincrement
 (
     id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY
 );
 
-CREATE TABLE test_uuid
+CREATE TABLE primary_uuid
 (
     id UUID NOT NULL PRIMARY KEY
 );

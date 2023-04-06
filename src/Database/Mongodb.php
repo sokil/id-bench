@@ -46,12 +46,12 @@ class Mongodb implements DatabaseInterface
 
     public function truncateAutoIncrementTable(): void
     {
-        $this->truncateTable('test_autoincrement');
+        $this->truncateTable('primary_autoincrement');
     }
 
     public function truncateUuidTable(): void
     {
-        $this->truncateTable('test_uuid');
+        $this->truncateTable('primary_uuid');
     }
 
     public function measureAutoIncrementInsert(int $batchSize): float
@@ -63,7 +63,7 @@ class Mongodb implements DatabaseInterface
 
         $startTime = microtime(true);
 
-        $this->connection->executeBulkWrite(self::DATABASE_NAME . '.test_autoincrement', $bulk);
+        $this->connection->executeBulkWrite(self::DATABASE_NAME . '.primary_autoincrement', $bulk);
 
         $duration = microtime(true) - $startTime;
 
@@ -82,7 +82,7 @@ class Mongodb implements DatabaseInterface
 
         $startTime = microtime(true);
 
-        $this->connection->executeBulkWrite(self::DATABASE_NAME . '.test_uuid', $bulk);
+        $this->connection->executeBulkWrite(self::DATABASE_NAME . '.primary_uuid', $bulk);
 
         $duration = microtime(true) - $startTime;
 
@@ -91,12 +91,12 @@ class Mongodb implements DatabaseInterface
 
     public function getAutoIncrementIndexSize(): int
     {
-        return $this->getIndexSize('test_autoincrement');
+        return $this->getIndexSize('primary_autoincrement');
     }
 
     public function getUuidIndexSize(): int
     {
-        return $this->getIndexSize('test_uuid');
+        return $this->getIndexSize('primary_uuid');
     }
 
     private function getIndexSize(string $tableName): int

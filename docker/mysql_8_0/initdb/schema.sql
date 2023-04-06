@@ -1,9 +1,9 @@
-CREATE TABLE test_autoincrement
+CREATE TABLE primary_autoincrement
 (
     id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT
 ) Engine=InnoDB;
 
-CREATE TABLE test_uuid
+CREATE TABLE primary_uuid
 (
     id BINARY(16) NOT NULL PRIMARY KEY
 ) Engine=InnoDB;

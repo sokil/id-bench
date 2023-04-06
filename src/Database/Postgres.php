@@ -25,12 +25,12 @@ class Postgres implements DatabaseInterface
 
     public function truncateAutoIncrementTable(): void
     {
-        $this->connection->query('TRUNCATE TABLE test_autoincrement');
+        $this->connection->query('TRUNCATE TABLE primary_autoincrement');
     }
 
     public function truncateUuidTable(): void
     {
-        $this->connection->query('TRUNCATE TABLE test_uuid');
+        $this->connection->query('TRUNCATE TABLE primary_uuid');
     }
 
     public function measureAutoIncrementInsert(int $batchSize): float
@@ -42,7 +42,7 @@ class Postgres implements DatabaseInterface
 
         $startTime = microtime(true);
 
-        $this->connection->query('INSERT INTO test_autoincrement VALUES ' . $values);
+        $this->connection->query('INSERT INTO primary_autoincrement VALUES ' . $values);
 
         $duration = microtime(true) - $startTime;
 
@@ -56,7 +56,7 @@ class Postgres implements DatabaseInterface
     {
         $values = '(\'' . implode('\'),(\'', $ids) . '\')';
 
-        $query = 'INSERT INTO test_uuid VALUES ' . $values;
+        $query = 'INSERT INTO primary_uuid VALUES ' . $values;
 
         $startTime = microtime(true);
 
@@ -69,12 +69,12 @@ class Postgres implements DatabaseInterface
 
     public function getAutoIncrementIndexSize(): int
     {
-        return $this->getIndexSize('test_autoincrement');
+        return $this->getIndexSize('primary_autoincrement');
     }
 
     public function getUuidIndexSize(): int
     {
-        return $this->getIndexSize('test_uuid');
+        return $this->getIndexSize('primary_uuid');
     }
 
     private function getIndexSize(string $tableName): int
