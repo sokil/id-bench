@@ -33,7 +33,7 @@ class Mysql implements DatabaseInterface
         $this->connection->query('TRUNCATE TABLE primary_uuid');
     }
 
-    public function measureAutoIncrementInsert(int $batchSize): float
+    public function measurePrimaryAutoIncrementInsert(int $batchSize): float
     {
         $values = implode(
             ',',
@@ -52,7 +52,7 @@ class Mysql implements DatabaseInterface
     /**
      * @param string[] $ids List of uuids in 32 chars hex format
      */
-    public function measureUuidInsert(array $ids): float
+    public function measurePrimaryUuidInsert(array $ids): float
     {
         $values = '(0x' . implode(
             '),(0x',
@@ -70,14 +70,40 @@ class Mysql implements DatabaseInterface
         return $duration;
     }
 
-    public function getAutoIncrementIndexSize(): int
+    /**
+     * @param string[] $ids List of uuids in 32 chars hex format
+     */
+    public function measureSecondaryUuidInsert(array $ids): float
+    {
+        $values = '(0x' . implode(
+                '),(0x',
+                $ids
+            ) . ')';
+
+        $query = 'INSERT INTO secondary_uuid VALUES ' . $values;
+
+        $startTime = microtime(true);
+
+        $this->connection->query($query);
+
+        $duration = microtime(true) - $startTime;
+
+        return $duration;
+    }
+
+    public function getPrimaryAutoIncrementIndexSize(): int
     {
         return $this->getIndexSize('primary_autoincrement');
     }
 
-    public function getUuidIndexSize(): int
+    public function getPrimaryUuidIndexSize(): int
     {
         return $this->getIndexSize('primary_uuid');
+    }
+
+    public function getSecondaryUuidIndexSize(): int
+    {
+        return $this->getIndexSize('secondary_uuid');
     }
 
     private function getIndexSize(string $tableName): int

@@ -33,7 +33,7 @@ class Postgres implements DatabaseInterface
         $this->connection->query('TRUNCATE TABLE primary_uuid');
     }
 
-    public function measureAutoIncrementInsert(int $batchSize): float
+    public function measurePrimaryAutoIncrementInsert(int $batchSize): float
     {
         $values = implode(
             ',',
@@ -52,7 +52,7 @@ class Postgres implements DatabaseInterface
     /**
      * @param string[] $ids List of uuids in 32 chars hex format
      */
-    public function measureUuidInsert(array $ids): float
+    public function measurePrimaryUuidInsert(array $ids): float
     {
         $values = '(\'' . implode('\'),(\'', $ids) . '\')';
 
@@ -67,12 +67,12 @@ class Postgres implements DatabaseInterface
         return $duration;
     }
 
-    public function getAutoIncrementIndexSize(): int
+    public function getPrimaryAutoIncrementIndexSize(): int
     {
         return $this->getIndexSize('primary_autoincrement');
     }
 
-    public function getUuidIndexSize(): int
+    public function getPrimaryUuidIndexSize(): int
     {
         return $this->getIndexSize('primary_uuid');
     }

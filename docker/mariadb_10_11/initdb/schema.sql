@@ -7,3 +7,9 @@ CREATE TABLE primary_uuid
 (
     id BINARY(16) NOT NULL PRIMARY KEY
 ) Engine=InnoDB;
+
+CREATE TABLE secondary_uuid
+(
+    id BINARY(16) NOT NULL,
+    INDEX idx (id)
+) Engine=InnoDB;

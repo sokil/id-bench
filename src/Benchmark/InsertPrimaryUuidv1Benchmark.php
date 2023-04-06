@@ -6,14 +6,14 @@ namespace Sokil\IdBench\Benchmark;
 
 use Ramsey\Uuid\Uuid;
 
-class InsertUuidv8Benchmark extends AbstractInsertUuidBenchmark
+class InsertPrimaryUuidv1Benchmark extends AbstractInsertPrimaryUuidBenchmark
 {
     protected function generateIds(int $batchSize): array
     {
         $uuids = [];
 
         for ($i = 0; $i < $batchSize; $i++) {
-            $uuids[] = Uuid::uuid8(random_bytes(16))->getHex()->toString();
+            $uuids[] = Uuid::uuid1()->getHex()->toString();
         }
 
         return $uuids;

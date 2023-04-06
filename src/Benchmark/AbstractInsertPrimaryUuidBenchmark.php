@@ -6,7 +6,7 @@ namespace Sokil\IdBench\Benchmark;
 
 use Sokil\IdBench\Database\DatabaseInterface;
 
-abstract class AbstractInsertUuidBenchmark implements BenchmarkInterface
+abstract class AbstractInsertPrimaryUuidBenchmark implements BenchmarkInterface
 {
     public function __construct(
         private readonly DatabaseInterface $database,
@@ -26,11 +26,11 @@ abstract class AbstractInsertUuidBenchmark implements BenchmarkInterface
             $uuids = $this->generateIds($batchSize);
 
             // duration of insert
-            $duration = $this->database->measureUuidInsert($uuids);
+            $duration = $this->database->measurePrimaryUuidInsert($uuids);
 
 
             // size of index
-            $indexSize = $this->database->getUuidIndexSize();
+            $indexSize = $this->database->getPrimaryUuidIndexSize();
 
             yield [
                 'iteration' => $i,

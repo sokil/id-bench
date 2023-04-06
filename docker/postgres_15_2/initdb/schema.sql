@@ -7,3 +7,10 @@ CREATE TABLE primary_uuid
 (
     id UUID NOT NULL PRIMARY KEY
 );
+
+CREATE TABLE secondary_uuid
+(
+    id UUID NOT NULL
+);
+
+CREATE INDEX idx ON secondary_uuid (id);

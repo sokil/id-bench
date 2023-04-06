@@ -16,15 +16,17 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Sokil\IdBench\Database\Mysql;
 use Sokil\IdBench\Database\Postgres;
 use Sokil\IdBench\Database\Mongodb;
-use Sokil\IdBench\Benchmark\InsertAutoIncrementBenchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv1Benchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv2Benchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv3Benchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv4Benchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv5Benchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv6Benchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv7Benchmark;
-use Sokil\IdBench\Benchmark\InsertUuidv8Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryAutoIncrementBenchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv1Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv2Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv3Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv4Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv5Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv6Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv7Benchmark;
+use Sokil\IdBench\Benchmark\InsertPrimaryUuidv8Benchmark;
+use Sokil\IdBench\Benchmark\InsertSecondaryUuidv4Benchmark;
+use Sokil\IdBench\Benchmark\InsertSecondaryUuidv7Benchmark;
 
 $databaseClasses = [
     'mysql' => Mysql::class,
@@ -35,15 +37,17 @@ $databaseClasses = [
 ];
 
 $benchmarkClasses = [
-    'insertAutoIncrement' => InsertAutoIncrementBenchmark::class,
-    'insertUuidv1' => InsertUuidv1Benchmark::class,
-    'insertUuidv2' => InsertUuidv2Benchmark::class,
-    'insertUuidv3' => InsertUuidv3Benchmark::class,
-    'insertUuidv4' => InsertUuidv4Benchmark::class,
-    'insertUuidv5' => InsertUuidv5Benchmark::class,
-    'insertUuidv6' => InsertUuidv6Benchmark::class,
-    'insertUuidv7' => InsertUuidv7Benchmark::class,
-    'insertUuidv8' => InsertUuidv8Benchmark::class,
+    'insertPrimaryAutoIncrement' => InsertPrimaryAutoIncrementBenchmark::class,
+    'insertPrimaryUuidv1' => InsertPrimaryUuidv1Benchmark::class,
+    'insertPrimaryUuidv2' => InsertPrimaryUuidv2Benchmark::class,
+    'insertPrimaryUuidv3' => InsertPrimaryUuidv3Benchmark::class,
+    'insertPrimaryUuidv4' => InsertPrimaryUuidv4Benchmark::class,
+    'insertPrimaryUuidv5' => InsertPrimaryUuidv5Benchmark::class,
+    'insertPrimaryUuidv6' => InsertPrimaryUuidv6Benchmark::class,
+    'insertPrimaryUuidv7' => InsertPrimaryUuidv7Benchmark::class,
+    'insertPrimaryUuidv8' => InsertPrimaryUuidv8Benchmark::class,
+    'insertSecondaryUuidv4' => InsertSecondaryUuidv4Benchmark::class,
+    'insertSecondaryUuidv7' => InsertSecondaryUuidv7Benchmark::class,
 ];
 
 $application = new SingleCommandApplication();

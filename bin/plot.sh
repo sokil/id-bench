@@ -40,18 +40,21 @@ EOF
 
     rm ${GNUPLOT_COMMANDS_FILE}
 }
+#
+#draw "mysql-insert" "Time" 2 "mysql-insert-time.png" "smooth csplines"
+#draw "mysql-insert" "Index Size" 3 "mysql-insert-indexsize.png" ""
 
-draw "mysql-insert" "Time" 2 "mysql-insert-time.png" "smooth csplines"
-draw "mysql-insert" "Index Size" 3 "mysql-insert-indexsize.png" ""
+draw "mysql-insertSecondary" "Time" 2 "mysql-insertSecondary-time.png" "smooth csplines"
+draw "mysql-insertSecondary" "Index Size" 3 "mysql-insertSecondary-indexsize.png" ""
 
-draw "percona-insert" "Time" 2 "percona-insert-time.png" "smooth bezier"
-draw "percona-insert" "Index Size" 3 "percona-insert-indexsize.png" ""
-
-draw "mariadb-insert" "Time" 2 "mariadb-insert-time.png" "smooth csplines"
-draw "mariadb-insert" "Index Size" 3 "mariadb-insert-indexsize.png" ""
-
-draw "postgres-insert" "Time" 2 "postgres-insert-time.png" "smooth csplines"
-draw "postgres-insert" "Index Size" 3 "postgres-insert-indexsize.png" ""
-
-draw "mongodb-insert" "Time" 2 "mongodb-insert-time.png" "smooth csplines"
-draw "mongodb-insert" "Index Size" 3 "mongodb-insert-indexsize.png" ""
+#draw "percona-insert" "Time" 2 "percona-insert-time.png" "smooth bezier"
+#draw "percona-insert" "Index Size" 3 "percona-insert-indexsize.png" ""
+#
+#draw "mariadb-insert" "Time" 2 "mariadb-insert-time.png" "smooth csplines"
+#draw "mariadb-insert" "Index Size" 3 "mariadb-insert-indexsize.png" ""
+#
+#draw "postgres-insert" "Time" 2 "postgres-insert-time.png" "smooth csplines"
+#draw "postgres-insert" "Index Size" 3 "postgres-insert-indexsize.png" ""
+#
+#draw "mongodb-insert" "Time" 2 "mongodb-insert-time.png" "smooth csplines"
+#draw "mongodb-insert" "Index Size" 3 "mongodb-insert-indexsize.png" ""

@@ -54,7 +54,7 @@ class Mongodb implements DatabaseInterface
         $this->truncateTable('primary_uuid');
     }
 
-    public function measureAutoIncrementInsert(int $batchSize): float
+    public function measurePrimaryAutoIncrementInsert(int $batchSize): float
     {
         $bulk = new BulkWrite();
         for ($i = 0; $i < $batchSize; $i++) {
@@ -73,7 +73,7 @@ class Mongodb implements DatabaseInterface
     /**
      * @param string[] $ids List of uuids in 32 chars hex format
      */
-    public function measureUuidInsert(array $ids): float
+    public function measurePrimaryUuidInsert(array $ids): float
     {
         $bulk = new BulkWrite();
         for ($i = 0; $i < count($ids); $i++) {
@@ -89,12 +89,12 @@ class Mongodb implements DatabaseInterface
         return $duration;
     }
 
-    public function getAutoIncrementIndexSize(): int
+    public function getPrimaryAutoIncrementIndexSize(): int
     {
         return $this->getIndexSize('primary_autoincrement');
     }
 
-    public function getUuidIndexSize(): int
+    public function getPrimaryUuidIndexSize(): int
     {
         return $this->getIndexSize('primary_uuid');
     }

@@ -6,7 +6,7 @@ namespace Sokil\IdBench\Benchmark;
 
 use Sokil\IdBench\Database\DatabaseInterface;
 
-class InsertAutoIncrementBenchmark implements BenchmarkInterface
+class InsertPrimaryAutoIncrementBenchmark implements BenchmarkInterface
 {
     public function __construct(
         private readonly DatabaseInterface $database,
@@ -21,10 +21,10 @@ class InsertAutoIncrementBenchmark implements BenchmarkInterface
 
         for ($i = 0; $i < $iterations; $i++) {
             // duration of insert
-            $duration = $this->database->measureAutoIncrementInsert($batchSize);
+            $duration = $this->database->measurePrimaryAutoIncrementInsert($batchSize);
 
             // size of index
-            $indexSize = $this->database->getAutoIncrementIndexSize();
+            $indexSize = $this->database->getPrimaryAutoIncrementIndexSize();
 
             yield [
                 'iteration' => $i,
