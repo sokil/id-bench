@@ -43,36 +43,45 @@ After running benchmarks, you may build charts:
 
 ## Results
 
-#### Insert
+### Insert To Primary Key
 
 Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
 
-### MySQL 8.0 InnoDb
+#### MySQL 8.0 InnoDb
 
-![Insert time](results/mysql-insert-time.png)
-![Insert time](results/mysql-insert-indexsize.png)
+![Insert time](results/mysql-insertPrimary-time.png)
+![Insert time](results/mysql-insertPrimary-indexsize.png)
 
-### Percona 8.0 InnoDb
+#### Percona 8.0 InnoDb
 
-![Insert time](results/percona-insert-time.png)
-![Insert time](results/percona-insert-indexsize.png)
+![Insert time](results/percona-insertPrimary-time.png)
+![Insert time](results/percona-insertPrimary-indexsize.png)
 
-### MariaDB 10.11 InnoDb
+#### MariaDB 10.11 InnoDb
 
-![Insert time](results/mariadb-insert-time.png)
-![Insert time](results/mariadb-insert-indexsize.png)
+![Insert time](results/mariadb-insertPrimary-time.png)
+![Insert time](results/mariadb-insertPrimary-indexsize.png)
 
-### Postgres 15.2
+#### Postgres 15.2
 
-![Insert time](results/postgres-insert-time.png)
-![Insert time](results/postgres-insert-indexsize.png)
+![Insert time](results/postgres-insertPrimary-time.png)
+![Insert time](results/postgres-insertPrimary-indexsize.png)
 
-### MongoDB 6.0
+#### MongoDB 6.0
 
 MongoDb has no auto increment feature, so external sequence used and MongoDB just insert integers.
 
-![Insert time](results/mongodb-insert-time.png)
-![Insert time](results/mongodb-insert-indexsize.png)
+![Insert time](results/mongodb-insertPrimary-time.png)
+![Insert time](results/mongodb-insertPrimary-indexsize.png)
+
+### Insert To Secondary Index
+
+Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
+
+#### MySQL 8.0 InnoDb
+
+![Insert time](results/mysql-insertSecondary-time.png)
+![Insert time](results/mysql-insertSecondary-indexsize.png)
 
 ## Materials
 

@@ -40,21 +40,21 @@ EOF
 
     rm ${GNUPLOT_COMMANDS_FILE}
 }
-#
-#draw "mysql-insert" "Time" 2 "mysql-insert-time.png" "smooth csplines"
-#draw "mysql-insert" "Index Size" 3 "mysql-insert-indexsize.png" ""
+
+draw "mysql-insertPrimary" "Time" 2 "mysql-insertPrimary-time.png" "smooth csplines"
+draw "mysql-insertPrimary" "Index Size" 3 "mysql-insertPrimary-indexsize.png" ""
 
 draw "mysql-insertSecondary" "Time" 2 "mysql-insertSecondary-time.png" "smooth csplines"
 draw "mysql-insertSecondary" "Index Size" 3 "mysql-insertSecondary-indexsize.png" ""
 
-#draw "percona-insert" "Time" 2 "percona-insert-time.png" "smooth bezier"
-#draw "percona-insert" "Index Size" 3 "percona-insert-indexsize.png" ""
-#
-#draw "mariadb-insert" "Time" 2 "mariadb-insert-time.png" "smooth csplines"
-#draw "mariadb-insert" "Index Size" 3 "mariadb-insert-indexsize.png" ""
-#
-#draw "postgres-insert" "Time" 2 "postgres-insert-time.png" "smooth csplines"
-#draw "postgres-insert" "Index Size" 3 "postgres-insert-indexsize.png" ""
-#
-#draw "mongodb-insert" "Time" 2 "mongodb-insert-time.png" "smooth csplines"
-#draw "mongodb-insert" "Index Size" 3 "mongodb-insert-indexsize.png" ""
+draw "percona-insertPrimary" "Time" 2 "percona-insertPrimary-time.png" "smooth bezier"
+draw "percona-insertPrimary" "Index Size" 3 "percona-insertPrimary-indexsize.png" ""
+
+draw "mariadb-insertPrimary" "Time" 2 "mariadb-insertPrimary-time.png" "smooth csplines"
+draw "mariadb-insertPrimary" "Index Size" 3 "mariadb-insertPrimary-indexsize.png" ""
+
+draw "postgres-insertPrimary" "Time" 2 "postgres-insertPrimary-time.png" "smooth csplines"
+draw "postgres-insertPrimary" "Index Size" 3 "postgres-insertPrimary-indexsize.png" ""
+
+draw "mongodb-insertPrimary" "Time" 2 "mongodb-insertPrimary-time.png" "smooth csplines"
+draw "mongodb-insertPrimary" "Index Size" 3 "mongodb-insertPrimary-indexsize.png" ""
