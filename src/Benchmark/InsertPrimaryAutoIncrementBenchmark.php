@@ -17,7 +17,7 @@ class InsertPrimaryAutoIncrementBenchmark implements BenchmarkInterface
         int $iterations,
         int $batchSize,
     ): \Generator {
-        $this->database->truncateAutoIncrementTable();
+        $this->database->truncatePrimaryAutoIncrementTable();
 
         for ($i = 0; $i < $iterations; $i++) {
             // duration of insert

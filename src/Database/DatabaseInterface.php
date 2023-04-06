@@ -8,9 +8,11 @@ use Ramsey\Uuid\Uuid;
 
 interface DatabaseInterface
 {
-    public function truncateAutoIncrementTable(): void;
+    public function truncatePrimaryAutoIncrementTable(): void;
 
-    public function truncateUuidTable(): void;
+    public function truncatePrimaryUuidTable(): void;
+
+    public function truncateSecondaryUuidTable(): void;
 
     public function measurePrimaryAutoIncrementInsert(int $batchSize): float;
 

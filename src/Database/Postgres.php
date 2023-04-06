@@ -23,14 +23,19 @@ class Postgres implements DatabaseInterface
         );
     }
 
-    public function truncateAutoIncrementTable(): void
+    public function truncatePrimaryAutoIncrementTable(): void
     {
         $this->connection->query('TRUNCATE TABLE primary_autoincrement');
     }
 
-    public function truncateUuidTable(): void
+    public function truncatePrimaryUuidTable(): void
     {
         $this->connection->query('TRUNCATE TABLE primary_uuid');
+    }
+
+    public function truncateSecondaryUuidTable(): void
+    {
+        $this->connection->query('TRUNCATE TABLE secondary_uuid');
     }
 
     public function measurePrimaryAutoIncrementInsert(int $batchSize): float

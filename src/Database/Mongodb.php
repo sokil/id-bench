@@ -44,14 +44,19 @@ class Mongodb implements DatabaseInterface
         }
     }
 
-    public function truncateAutoIncrementTable(): void
+    public function truncatePrimaryAutoIncrementTable(): void
     {
         $this->truncateTable('primary_autoincrement');
     }
 
-    public function truncateUuidTable(): void
+    public function truncatePrimaryUuidTable(): void
     {
         $this->truncateTable('primary_uuid');
+    }
+
+    public function truncateSecondaryUuidTable(): void
+    {
+        $this->truncateTable('secondary_uuid');
     }
 
     public function measurePrimaryAutoIncrementInsert(int $batchSize): float

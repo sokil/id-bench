@@ -23,14 +23,19 @@ class Mysql implements DatabaseInterface
         );
     }
 
-    public function truncateAutoIncrementTable(): void
+    public function truncatePrimaryAutoIncrementTable(): void
     {
         $this->connection->query('TRUNCATE TABLE primary_autoincrement');
     }
 
-    public function truncateUuidTable(): void
+    public function truncatePrimaryUuidTable(): void
     {
         $this->connection->query('TRUNCATE TABLE primary_uuid');
+    }
+
+    public function truncateSecondaryUuidTable(): void
+    {
+        $this->connection->query('TRUNCATE TABLE secondary_uuid');
     }
 
     public function measurePrimaryAutoIncrementInsert(int $batchSize): float
@@ -93,20 +98,20 @@ class Mysql implements DatabaseInterface
 
     public function getPrimaryAutoIncrementIndexSize(): int
     {
-        return $this->getIndexSize('primary_autoincrement');
+        return $this->getPrimaryIndexSize('primary_autoincrement');
     }
 
     public function getPrimaryUuidIndexSize(): int
     {
-        return $this->getIndexSize('primary_uuid');
+        return $this->getPrimaryIndexSize('primary_uuid');
     }
 
     public function getSecondaryUuidIndexSize(): int
     {
-        return $this->getIndexSize('secondary_uuid');
+        return $this->getSecondaryIndexSize('secondary_uuid');
     }
 
-    private function getIndexSize(string $tableName): int
+    private function getPrimaryIndexSize(string $tableName): int
     {
         $stmt = $this->connection->query(
             sprintf("
@@ -116,6 +121,25 @@ class Mysql implements DatabaseInterface
                     database_name = 'bench' AND 
                     table_name = '%s' AND
                     index_name = 'PRIMARY' AND
+                    stat_name = 'size'
+                ",
+                $tableName
+            )
+        );
+
+        return (int) $stmt->fetchColumn();
+    }
+
+    private function getSecondaryIndexSize(string $tableName): int
+    {
+        $stmt = $this->connection->query(
+            sprintf("
+                SELECT stat_value * @@innodb_page_size as index_size
+                FROM mysql.innodb_index_stats 
+                WHERE 
+                    database_name = 'bench' AND 
+                    table_name = '%s' AND
+                    index_name = 'idx' AND
                     stat_name = 'size'
                 ",
                 $tableName

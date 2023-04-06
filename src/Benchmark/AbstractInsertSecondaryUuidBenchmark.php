@@ -19,7 +19,7 @@ abstract class AbstractInsertSecondaryUuidBenchmark implements BenchmarkInterfac
         int $iterations,
         int $batchSize,
     ): \Generator {
-        $this->database->truncateUuidTable();
+        $this->database->truncateSecondaryUuidTable();
 
         for ($i = 0; $i < $iterations; $i++) {
             // generate chunk of uuids to insert

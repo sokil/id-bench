@@ -19,7 +19,7 @@ abstract class AbstractInsertPrimaryUuidBenchmark implements BenchmarkInterface
         int $iterations,
         int $batchSize,
     ): \Generator {
-        $this->database->truncateUuidTable();
+        $this->database->truncatePrimaryUuidTable();
 
         for ($i = 0; $i < $iterations; $i++) {
             // generate chunk of uuids to insert
