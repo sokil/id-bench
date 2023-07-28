@@ -47,11 +47,11 @@ After running benchmarks, you may build charts:
 
 Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
 
-* [MySQL 8.0 InnoDb](mysql-80-innodb-with-promary-key)
-* [Percona 8.0 InnoDb](percona-80-innodb-with-promary-key)
-* [MariaDB 10.11 InnoDb](mariadb-1011-innodb-with-promary-key)
-* [Postgres 15.2](postgres-152-with-promary-key)
-* [MongoDB 6.0](mongodb-60-with-promary-key)
+* [MySQL 8.0 InnoDb](#mysql-80-innodb-with-promary-key)
+* [Percona 8.0 InnoDb](#percona-80-innodb-with-promary-key)
+* [MariaDB 10.11 InnoDb](#mariadb-1011-innodb-with-promary-key)
+* [Postgres 15.2](#postgres-152-with-promary-key)
+* [MongoDB 6.0](#mongodb-60-with-promary-key)
 
 #### MySQL 8.0 InnoDb with promary key
 
