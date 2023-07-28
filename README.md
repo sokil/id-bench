@@ -47,27 +47,33 @@ After running benchmarks, you may build charts:
 
 Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
 
-#### MySQL 8.0 InnoDb
+* [MySQL 8.0 InnoDb](mysql-80-innodb-with-promary-key)
+* [Percona 8.0 InnoDb](percona-80-innodb-with-promary-key)
+* [MariaDB 10.11 InnoDb](mariadb-1011-innodb-with-promary-key)
+* [Postgres 15.2](postgres-152-with-promary-key)
+* [MongoDB 6.0](mongodb-60-with-promary-key)
+
+#### MySQL 8.0 InnoDb with promary key
 
 ![Insert time](results/mysql-insertPrimary-time.png)
 ![Insert time](results/mysql-insertPrimary-indexsize.png)
 
-#### Percona 8.0 InnoDb
+#### Percona 8.0 InnoDb with promary key
 
 ![Insert time](results/percona-insertPrimary-time.png)
 ![Insert time](results/percona-insertPrimary-indexsize.png)
 
-#### MariaDB 10.11 InnoDb
+#### MariaDB 10.11 InnoDb with promary key
 
 ![Insert time](results/mariadb-insertPrimary-time.png)
 ![Insert time](results/mariadb-insertPrimary-indexsize.png)
 
-#### Postgres 15.2
+#### Postgres 15.2 with promary key
 
 ![Insert time](results/postgres-insertPrimary-time.png)
 ![Insert time](results/postgres-insertPrimary-indexsize.png)
 
-#### MongoDB 6.0
+#### MongoDB 6.0 with promary key
 
 MongoDb has no auto increment feature, so external sequence used and MongoDB just insert integers.
 
@@ -78,7 +84,7 @@ MongoDb has no auto increment feature, so external sequence used and MongoDB jus
 
 Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
 
-#### MySQL 8.0 InnoDb
+#### MySQL 8.0 InnoDb  with secondary key
 
 ![Insert time](results/mysql-insertSecondary-time.png)
 ![Insert time](results/mysql-insertSecondary-indexsize.png)
