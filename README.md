@@ -1,6 +1,6 @@
 # id-bench
 
-Primary key insertion and selection benchmarking
+Primary key and secondary key insertion and selection benchmarking
 
 ## UUID
 
