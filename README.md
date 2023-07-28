@@ -2,7 +2,7 @@
 
 Primary key and secondary key insertion and selection benchmarking
 
-## UUID
+## 1. UUID Versions 
 
 | Version | Description                                                                                                                                                                                                                                                                                                                                                                        |
 |---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -15,17 +15,17 @@ Primary key and secondary key insertion and selection benchmarking
 | 7       | UUID version 7 features a time-ordered value field derived from the widely implemented and well known Unix Epoch timestamp source, the number of milliseconds seconds since midnight 1 Jan 1970 UTC, leap seconds excluded. As well as improved entropy characteristics over versions 1 or 6. Implementations SHOULD utilize UUID version 7 over UUID version 1 and 6 if possible. |
 | 8       | RFC-compatible format for experimental or vendor-specific use cases.                                                                                                                                                                                                                                                                                                               |
 
-## Test environment definition
+## 2. Test environment definition
 
 CPU: 12th Gen Intel(R) Core(TM) i7-1255U
 RAM: 16 GB
 
-### Database schemas
+### 2.1. Database schemas
 
 * [MySQL](docker/mysql_8_0/initdb/schema.sql)
 * [Postgres](docker/postgres_15_2/initdb/schema.sql)
 
-### Running tests
+### 2.2. Running tests
 
 Run next command with defined parameters:
 
@@ -33,7 +33,7 @@ Run next command with defined parameters:
 docker compose run --rm php ./bin/bench [database] [benchmark] -b [batch-size] -i [iterations]
 ```
 
-### Building charts
+### 2.3 Building charts
 
 After running benchmarks, you may build charts:
 
@@ -41,9 +41,9 @@ After running benchmarks, you may build charts:
 ./bin/plot.sh
 ```
 
-## Results
+## 3. Results
 
-### Insert To Primary Key
+### 3.1. Insert To Primary Key
 
 Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
 
@@ -80,7 +80,7 @@ MongoDb has no auto increment feature, so external sequence used and MongoDB jus
 ![Insert time](results/mongodb-insertPrimary-time.png)
 ![Insert time](results/mongodb-insertPrimary-indexsize.png)
 
-### Insert To Secondary Index
+### 3.2. Insert To Secondary Index
 
 Records inserted by batch 5000 times with size 2000. Total amount of records - 10kk.
 
@@ -89,7 +89,7 @@ Records inserted by batch 5000 times with size 2000. Total amount of records - 1
 ![Insert time](results/mysql-insertSecondary-time.png)
 ![Insert time](results/mysql-insertSecondary-indexsize.png)
 
-## Materials
+## 4. Materials
 
 * https://www.percona.com/blog/uuids-are-popular-but-bad-for-performance-lets-discuss/
 * https://www.ietf.org/rfc/rfc4122.txt
